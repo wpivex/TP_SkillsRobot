@@ -1,6 +1,6 @@
-#include "drivebase/drivebase.hpp"
+/*#include "drivebase/drivebase.hpp"
 #include "flywheel/flywheel.hpp"
-#include "arm/arm.hpp"
+#include "arm/arm.hpp"*/
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -14,6 +14,7 @@
  * from where it left off.
  */
 
+/*
 Flywheel flywheel;
 Arm arm;
 Chassis chassis;
@@ -72,7 +73,7 @@ void autonomous()
     scoreCap();
 
     // Step
-    flywheel.setFlywheelRPM(FIRST_SHOT_RPM);
+    //flywheel.setFlywheelRPM(FIRST_SHOT_RPM); // TODO: Fix
     chassis.chassisController.moveDistance(0.5_ft);
 
     // Step
@@ -112,9 +113,10 @@ void autonomous()
     scoreCap();
 
     // Step
-    flywheel.setFlywheelRPM(FIRST_SHOT_RPM);
+    //flywheel.setFlywheelRPM(FIRST_SHOT_RPM); // TODO: Fix
     chassis.chassisController.moveDistance(0.5_ft);
 
     // Step
     chassis.chassisController.turnAngle(90_deg);
 }
+*/
