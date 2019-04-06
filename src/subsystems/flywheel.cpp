@@ -7,6 +7,8 @@ Flywheel::Flywheel()
       leftFlywheel(LEFT_FLYWHEEL),
       rightFlywheel(RIGHT_FLYWHEEL)
 {
+  leftFlywheel.setBrakeMode(AbstractMotor::brakeMode::coast);
+  rightFlywheel.setBrakeMode(AbstractMotor::brakeMode::coast);
 }
 
 void Flywheel::fire()

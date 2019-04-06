@@ -13,12 +13,13 @@ public:
   void intake();
   void fireForEffect();
 
-private:
+  // TODO: Move to private after testing
   AsyncVelIntegratedController flywheelController;
   Motor indexer;
   Motor leftFlywheel;
   Motor rightFlywheel;
 
+private:
   void fire();
 
   static constexpr int INTAKE_TRAVEL = 250;
@@ -31,8 +32,8 @@ private:
   const int HOLD_RPM = 10;
   const int FIRE_CURRENT = 10;
 
-  static constexpr int LEFT_FLYWHEEL = 6;
-  static constexpr int RIGHT_FLYWHEEL = -7;
+  static constexpr int LEFT_FLYWHEEL = -18;
+  static constexpr int RIGHT_FLYWHEEL = 8;
   static constexpr int INDEXER = -13;
 };
 

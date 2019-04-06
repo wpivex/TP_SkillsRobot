@@ -32,12 +32,12 @@ void opcontrol()
 
 	while (true)
 	{
-		//bool thisIDEisCompleteGarbage = true;
+		// bool thisIDEisCompleteGarbage = true;
 
-		// Tank drive with left and right sticks
 		chassis_op.chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
 										  controller.getAnalog(ControllerAnalog::rightY));
 
+		/*
 		if (controller.getDigital(ControllerDigital::A))
 		{
 			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
@@ -54,15 +54,34 @@ void opcontrol()
 		{
 			arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
 		}
+		*/
 
-		/*
-		auto ticks = test_left.get_raw_position(time);
+		if (controller.getDigital(ControllerDigital::L1))
+		{
+			flywheel_op.flywheelController.setTarget(100);
+		}
+		else if (controller.getDigital(ControllerDigital::L2))
+		{
+			flywheel_op.flywheelController.setTarget(50);
+		}
+		else if (controller.getDigital(ControllerDigital::R1))
+		{
+			flywheel_op.flywheelController.setTarget(0);
+		}
 
-		std::ostringstream strs;
-		strs << ticks;
-		std::string str = strs.str();
-*/
-		//pros::lcd::set_text(1, str);
+		/*int leftCurrent = flywheel_op.leftFlywheel.getCurrentDraw();
+		int rightCurrent = flywheel_op.leftFlywheel.getCurrentDraw();
+
+		std::ostringstream strsL;
+		strsL << leftCurrent;
+		std::string strL = strsL.str();
+
+		std::ostringstream strsR;
+		strsR << rightCurrent;
+		std::string strR = strsR.str();
+
+		pros::lcd::set_text(1, strL);
+		pros::lcd::set_text(2, strR);*/
 
 		// Wait and give up the time we don't need to other tasks.
 		// Additionally, joystick values, motor telemetry, etc. all updates every 10 ms.
