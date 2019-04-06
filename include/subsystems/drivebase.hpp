@@ -24,8 +24,8 @@ private:
   static constexpr int BACK_RIGHT_DRIVE = -20;
 
   static constexpr auto WHEEL_DIAMETER = 3.25_in;
-  static constexpr auto CHASSIS_WIDTH = 10_in; // TODO: Get this value
-  static constexpr auto SCALE_ENCODER = 1;     // TODO: Get this
+  static constexpr auto CHASSIS_WIDTH = 6.75_in;
+  static constexpr auto SCALE_ENCODER = 5.68888;
 };
 
 #endif
