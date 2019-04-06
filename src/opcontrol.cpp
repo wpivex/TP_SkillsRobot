@@ -1,6 +1,4 @@
-#include "arm/arm.hpp"
-#include "drivebase/drivebase.hpp"
-#include "flywheel/flywheel.hpp"
+#include "../include/main.h"
 
 #include <sstream>
 
@@ -18,34 +16,31 @@
  * task, not resume it from where it left off.
  */
 
-using namespace okapi;
-
-Controller controller;
-
-Chassis chassis;
-Arm arm;
-Flywheel flywheel;
+Chassis chassis_op;
+Arm arm_op;
+Flywheel flywheel_op;
 
 void intakeBalls()
 {
-	flywheel.intake();
-	arm.armController.setTarget(arm.STASH_SETPOINT);
+	flywheel_op.intake();
+	arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
 }
 
 void opcontrol()
 {
+	Controller controller;
 
 	while (true)
 	{
 		//bool thisIDEisCompleteGarbage = true;
 
 		// Tank drive with left and right sticks
-		chassis.chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
-									   controller.getAnalog(ControllerAnalog::rightY));
+		chassis_op.chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
+										  controller.getAnalog(ControllerAnalog::rightY));
 
 		if (controller.getDigital(ControllerDigital::A))
 		{
-			arm.armController.setTarget(arm.SECURE_SETPOINT);
+			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
 		}
 		else if (controller.getDigital(ControllerDigital::B))
 		{
@@ -53,11 +48,11 @@ void opcontrol()
 		}
 		else if (controller.getDigital(ControllerDigital::X))
 		{
-			arm.armController.setTarget(arm.DOWN_SETPOINT);
+			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
 		}
 		else if (controller.getDigital(ControllerDigital::Y))
 		{
-			arm.armController.setTarget(arm.SCORE_SETPOINT);
+			arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
 		}
 
 		/*

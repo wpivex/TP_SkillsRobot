@@ -28,7 +28,7 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/initialize.cpp.o",
+            "C:/Users/Brandon/AppData/Local/Temp/tmplfndsuar/initialize.cpp.o",
             "src\\initialize.cpp"
         ],
         "directory": "C:\\Users\\Brandon\\dev\\skills_proj",
@@ -50,7 +50,7 @@
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/arm/",
+            "-iquote./include/subsystems/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -63,11 +63,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/arm/arm.cpp.o",
-            "src\\arm\\arm.cpp"
+            "bin/subsystems/drivebase.cpp.o",
+            "src\\subsystems\\drivebase.cpp"
         ],
         "directory": "C:\\Users\\Brandon\\dev\\skills_proj",
-        "file": "src\\arm\\arm.cpp"
+        "file": "src\\subsystems\\drivebase.cpp"
     },
     {
         "arguments": [
@@ -85,7 +85,7 @@
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/drivebase/",
+            "-iquote./include/subsystems/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -98,11 +98,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/drivebase/drivebase.cpp.o",
-            "src\\drivebase\\drivebase.cpp"
+            "bin/subsystems/flywheel.cpp.o",
+            "src\\subsystems\\flywheel.cpp"
         ],
         "directory": "C:\\Users\\Brandon\\dev\\skills_proj",
-        "file": "src\\drivebase\\drivebase.cpp"
+        "file": "src\\subsystems\\flywheel.cpp"
     },
     {
         "arguments": [
@@ -190,7 +190,7 @@
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/include-fixed",
             "-isystemc:\\program files\\pros\\toolchain\\usr\\bin\\../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/include",
             "-iquote./include",
-            "-iquote./include/flywheel/",
+            "-iquote./include/subsystems/",
             "-mcpu=cortex-a9",
             "-mfpu=neon-fp16",
             "-mfloat-abi=softfp",
@@ -203,10 +203,10 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/flywheel/flywheel.cpp.o",
-            "src\\flywheel\\flywheel.cpp"
+            "bin/subsystems/arm.cpp.o",
+            "src\\subsystems\\arm.cpp"
         ],
         "directory": "C:\\Users\\Brandon\\dev\\skills_proj",
-        "file": "src\\flywheel\\flywheel.cpp"
+        "file": "src\\subsystems\\arm.cpp"
     }
 ]

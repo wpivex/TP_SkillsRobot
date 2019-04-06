@@ -1,6 +1,4 @@
-/*#include "drivebase/drivebase.hpp"
-#include "flywheel/flywheel.hpp"
-#include "arm/arm.hpp"*/
+#include "../include/main.h"
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -13,16 +11,10 @@
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-
 /*
 Flywheel flywheel;
 Arm arm;
 Chassis chassis;
-
-void initializeTasks()
-{
-    // pros::Task flywheel_task(flywheel.flywheelTask);
-}
 
 void scoreCap()
 {
@@ -32,7 +24,7 @@ void scoreCap()
     arm.armController.setTarget(arm.DOWN_SETPOINT);
 }
 
-void intakeBalls()
+void intakeBallsAuto()
 {
     flywheel.intake();
     arm.armController.setTarget(arm.STASH_SETPOINT);
@@ -40,9 +32,6 @@ void intakeBalls()
 
 void autonomous()
 {
-    // Initialize
-    initializeTasks();
-
     // STAGE ONE
     // Step
     chassis.chassisController.moveDistance(1_m);
@@ -59,7 +48,7 @@ void autonomous()
     // Step
     chassis.chassisController.moveDistanceAsync(-7_ft);
     pros::delay(200);
-    arm.armController.setTarget(arm.STASH_SETPOINT);
+    intakeBallsAuto();
     arm.armController.waitUntilSettled();
     chassis.chassisController.waitUntilSettled();
 
@@ -97,7 +86,7 @@ void autonomous()
     chassis.driveIntoCap();
 
     // Step
-    arm.armController.setTarget(arm.STASH_SETPOINT);
+    intakeBallsAuto();
     chassis.chassisController.moveDistanceAsync(-3_ft);
     arm.armController.waitUntilSettled();
     chassis.chassisController.waitUntilSettled();

@@ -18,7 +18,7 @@ public:
 
 private:
   static constexpr int LEFT_ARM = -11;
-  static constexpr int RIGHT_ARM = 12;
+  static constexpr int RIGHT_ARM = 6;
 
   static constexpr double liftkP = 0.00200;
   static constexpr double liftkI = 0.000001;

@@ -1,4 +1,4 @@
-#include "flywheel.hpp"
+#include "../../include/subsystems/flywheel.hpp"
 
 Flywheel::Flywheel()
     : flywheelController(AsyncControllerFactory::velIntegrated(
