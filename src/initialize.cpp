@@ -17,11 +17,6 @@ void on_center_button()
 	}
 }
 
-void my_task_fn(void *param)
-{
-	std::cout << "Hello" << (char *)param << std::endl;
-}
-
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -34,11 +29,6 @@ void initialize()
 	lcd::set_text(1, "Hello PROS User!");
 
 	lcd::register_btn1_cb(on_center_button);
-
-	string phrase = "";
-
-	string text("PROS");
-	Task my_task(my_task_fn, &text);
 }
 
 /**
