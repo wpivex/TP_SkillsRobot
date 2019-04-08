@@ -32,12 +32,11 @@ void opcontrol()
 
 	while (true)
 	{
-		// bool thisIDEisCompleteGarbage = true;
+		bool thisIDEisCompleteGarbage = true;
 
 		chassis_op.chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
 										  controller.getAnalog(ControllerAnalog::rightY));
 
-		/*
 		if (controller.getDigital(ControllerDigital::A))
 		{
 			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
@@ -54,24 +53,15 @@ void opcontrol()
 		{
 			arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
 		}
-		*/
 
+		/*
 		if (controller.getDigital(ControllerDigital::L1))
 		{
-			flywheel_op.flywheelController.setTarget(100);
+			flywheel_op.fireForEffect();
 		}
-		else if (controller.getDigital(ControllerDigital::L2))
-		{
-			flywheel_op.flywheelController.setTarget(50);
-		}
-		else if (controller.getDigital(ControllerDigital::R1))
-		{
-			flywheel_op.flywheelController.setTarget(0);
-		}
+		*/
 
-		/*int leftCurrent = flywheel_op.leftFlywheel.getCurrentDraw();
-		int rightCurrent = flywheel_op.leftFlywheel.getCurrentDraw();
-
+		/*
 		std::ostringstream strsL;
 		strsL << leftCurrent;
 		std::string strL = strsL.str();
@@ -80,11 +70,15 @@ void opcontrol()
 		strsR << rightCurrent;
 		std::string strR = strsR.str();
 
-		pros::lcd::set_text(1, strL);
-		pros::lcd::set_text(2, strR);*/
+		std::ostringstream strsE;
+		strsE << error;
+		std::string strE = strsE.str();
+		*/
 
-		// Wait and give up the time we don't need to other tasks.
-		// Additionally, joystick values, motor telemetry, etc. all updates every 10 ms.
+		// pros::lcd::set_text(1, strL);
+		// pros::lcd::set_text(2, strR);
+		// pros::lcd::set_text(3, strE);
+
 		pros::Task::delay(10);
 	}
 }

@@ -12,11 +12,14 @@ public:
   AsyncPosPIDController armController;
 
   static constexpr int DOWN_SETPOINT = 0;
-  static constexpr int SECURE_SETPOINT = 280;
-  static constexpr int STASH_SETPOINT = 420;
-  static constexpr int SCORE_SETPOINT = 750;
+  static constexpr int SECURE_SETPOINT = 140;
+  static constexpr int STASH_SETPOINT = 210;
+  static constexpr int SCORE_SETPOINT = 375;
 
 private:
+  Motor leftArm;
+  Motor rightArm;
+
   static constexpr int LEFT_ARM = -11;
   static constexpr int RIGHT_ARM = 6;
 
