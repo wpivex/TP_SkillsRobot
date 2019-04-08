@@ -9,6 +9,9 @@ Flywheel::Flywheel()
 {
   leftFlywheel.setBrakeMode(AbstractMotor::brakeMode::coast);
   rightFlywheel.setBrakeMode(AbstractMotor::brakeMode::coast);
+  indexer.setBrakeMode(AbstractMotor::brakeMode::brake);
+
+  indexer.setGearing(AbstractMotor::gearset::green);
 }
 
 void Flywheel::fire()
@@ -26,11 +29,16 @@ void Flywheel::intake()
   indexer.moveRelative(INTAKE_TRAVEL, INTAKE_VEL);
 }
 
+void Flywheel::startFlywheel()
+{
+  flywheelController.setTarget(MID_FLAG_RPM);
+}
+
 void Flywheel::fireForEffect()
 {
-  flywheelController.setTarget(FIRST_SHOT_RPM);
+  flywheelController.setTarget(MID_FLAG_RPM);
   fire();
-  flywheelController.setTarget(SECOND_SHOT_RPM);
+  flywheelController.setTarget(HIGH_FLAG_RPM);
   fire();
-  flywheelController.setTarget(HOLD_RPM);
+  flywheelController.setTarget(MID_FLAG_RPM);
 }

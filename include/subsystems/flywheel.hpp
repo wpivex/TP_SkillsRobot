@@ -11,29 +11,28 @@ public:
   Flywheel();
 
   void intake();
+  void startFlywheel();
   void fireForEffect();
 
-  // TODO: Move to private after testing
+private:
   AsyncVelIntegratedController flywheelController;
   Motor indexer;
   Motor leftFlywheel;
   Motor rightFlywheel;
 
-private:
   void fire();
 
   static constexpr int INTAKE_TRAVEL = 250;
   static constexpr int INTAKE_VEL = 30;
+
   static constexpr int FIRE_VEL = 60;
+  static constexpr int FIRE_CURRENT = 1700;
 
-  // TODO: Get these setpoints
-  const int FIRST_SHOT_RPM = 20;
-  const int SECOND_SHOT_RPM = 10;
-  const int HOLD_RPM = 10;
-  const int FIRE_CURRENT = 10;
+  static constexpr int HIGH_FLAG_RPM = 145; // Int 145, PID 29, Blue 435
+  static constexpr int MID_FLAG_RPM = 127;  // Int 124, PID 25, Blue 372
 
-  static constexpr int LEFT_FLYWHEEL = -18;
-  static constexpr int RIGHT_FLYWHEEL = 8;
+  static constexpr int LEFT_FLYWHEEL = 18;
+  static constexpr int RIGHT_FLYWHEEL = -8;
   static constexpr int INDEXER = -13;
 };
 
