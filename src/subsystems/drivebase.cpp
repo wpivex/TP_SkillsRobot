@@ -1,13 +1,13 @@
 #include "../../include/subsystems/drivebase.hpp"
 
 Chassis::Chassis()
-    : cap_button('E'),
+    : cap_button('C'),
       chassisController(
           ChassisControllerFactory::create(
               {FRONT_LEFT_DRIVE, BACK_LEFT_DRIVE},
               {FRONT_RIGHT_DRIVE, BACK_RIGHT_DRIVE},
               ADIEncoder('A', 'B', false),
-              ADIEncoder('C', 'D', true),
+              ADIEncoder('G', 'H', true),
               IterativePosPIDController::Gains{0.0035, 0.0, 0.000003}, // TODO: Get these PID Values.
               IterativePosPIDController::Gains{0.0, 0.0, 0.0},
               IterativePosPIDController::Gains{0.004, 0.0, 0.00000003},
@@ -15,6 +15,7 @@ Chassis::Chassis()
               {WHEEL_DIAMETER, CHASSIS_WIDTH}) // TODO: Apply scaling with the lit encoders
       )
 {
+  chassisController.setBrakeMode(AbstractMotor::brakeMode::brake);
 }
 
 void Chassis::driveIntoCap()
