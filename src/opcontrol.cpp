@@ -17,13 +17,13 @@
  */
 
 Chassis chassis_op;
-Arm arm_op;
-Flywheel flywheel_op;
+// Arm arm_op;
+// Flywheel flywheel_op;
 
 void intakeBalls()
 {
-	flywheel_op.intake();
-	arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
+	// flywheel_op.intake();
+	// arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
 }
 
 void opcontrol()
@@ -39,19 +39,23 @@ void opcontrol()
 
 		if (controller.getDigital(ControllerDigital::A))
 		{
-			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+			chassis_op.chassisController.moveDistance(2_ft);
+			// arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
 		}
 		else if (controller.getDigital(ControllerDigital::B))
 		{
-			intakeBalls();
+			chassis_op.chassisController.turnAngle(45_deg);
+			// intakeBalls();
 		}
 		else if (controller.getDigital(ControllerDigital::X))
 		{
-			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+			chassis_op.chassisController.moveDistance(-2.0_ft);
+			// arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
 		}
 		else if (controller.getDigital(ControllerDigital::Y))
 		{
-			arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
+			chassis_op.chassisController.turnAngle(-90_deg);
+			// arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
 		}
 
 		/*
@@ -61,11 +65,13 @@ void opcontrol()
 		}
 		*/
 
-		/*
+		int ticks = chassis_op.chassisController.getSensorVals()[0];
+
 		std::ostringstream strsL;
-		strsL << leftCurrent;
+		strsL << ticks;
 		std::string strL = strsL.str();
 
+		/*
 		std::ostringstream strsR;
 		strsR << rightCurrent;
 		std::string strR = strsR.str();
@@ -75,7 +81,7 @@ void opcontrol()
 		std::string strE = strsE.str();
 		*/
 
-		// pros::lcd::set_text(1, strL);
+		pros::lcd::set_text(1, strL);
 		// pros::lcd::set_text(2, strR);
 		// pros::lcd::set_text(3, strE);
 

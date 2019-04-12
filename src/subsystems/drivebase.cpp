@@ -8,12 +8,12 @@ Chassis::Chassis()
               {FRONT_RIGHT_DRIVE, BACK_RIGHT_DRIVE},
               ADIEncoder('A', 'B', false),
               ADIEncoder('G', 'H', true),
-              IterativePosPIDController::Gains{0.0035, 0.0, 0.000003}, // TODO: Get these PID Values.
-              IterativePosPIDController::Gains{0.0, 0.0, 0.0},
-              IterativePosPIDController::Gains{0.004, 0.0, 0.00000003},
+              IterativePosPIDController::Gains{0.0004, 0.00000048, 0.0000000012},
+              IterativePosPIDController::Gains{0.0001, 0.000001, 0.000000000012},
+              IterativePosPIDController::Gains{0.0006, 0.00001, 0.00000000012},
               AbstractMotor::gearset::green,
-              {WHEEL_DIAMETER, CHASSIS_WIDTH}) // TODO: Apply scaling with the lit encoders
-      )
+              {RESOLUTION / ((WHEEL_DIAMETER).convert(meter) * 1_pi),
+               RESOLUTION * (CHASSIS_WIDTH).convert(meter) / (WHEEL_DIAMETER).convert(meter) / 360}))
 {
   chassisController.setBrakeMode(AbstractMotor::brakeMode::brake);
 }

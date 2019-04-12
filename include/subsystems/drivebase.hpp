@@ -25,7 +25,7 @@ private:
 
   static constexpr auto WHEEL_DIAMETER = 3.25_in;
   static constexpr auto CHASSIS_WIDTH = 6.75_in;
-  static constexpr auto SCALE_ENCODER = 5.68888;
+  static constexpr auto RESOLUTION = 2048.0;
 };
 
 #endif
