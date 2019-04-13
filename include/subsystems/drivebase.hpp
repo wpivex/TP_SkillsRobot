@@ -24,7 +24,7 @@ private:
   static constexpr int BACK_RIGHT_DRIVE = -20;
 
   static constexpr auto WHEEL_DIAMETER = 3.25_in;
-  static constexpr auto CHASSIS_WIDTH = 6.75_in;
+  static constexpr auto CHASSIS_WIDTH = 6.55_in;
   static constexpr auto RESOLUTION = 2048.0;
 };
 
