@@ -26,12 +26,20 @@ void intakeBalls()
 	arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
 }
 
-void scoreCap()
+void scoreCap(QLength pullOut)
+{
+	chassis_op.ramWallForwards(750);
+	arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
+	pros::delay(1100);
+	chassis_op.chassisController.moveDistance(-pullOut);
+}
+
+void scoreCapQuick(QLength pullOut)
 {
 	arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
 	chassis_op.ramWallForwards(500);
 	pros::delay(500);
-	chassis_op.chassisController.moveDistance(-1_ft);
+	chassis_op.chassisController.moveDistance(-pullOut);
 }
 
 void opcontrol()
@@ -40,44 +48,73 @@ void opcontrol()
 
 	while (true)
 	{
-		bool thisIDEisCompleteGarbage = true;
-
 		chassis_op.chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
 										  controller.getAnalog(ControllerAnalog::rightY));
 
 		if (controller.getDigital(ControllerDigital::A))
 		{
-			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
-			pros::delay(2000);
-			intakeBalls();
-			pros::delay(2000);
-			scoreCap();
 
-			/* FIrst bit of routine. Works, but needs way to avoid angle PID
-			pros::delay(500);
+			/* FIrst bit of routine. Works!! */
+			pros::delay(200);
 			chassis_op.driveIntoCap();
-			chassis_op.chassisController.stop();
-			pros::delay(250);
 			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
 			pros::delay(500);
-			chassis_op.chassisController.moveDistance(2.1_ft);
-			chassis_op.chassisController.turnAngle(45_deg);
+			chassis_op.experimentalChassisController.get()->moveDistance(1.9_ft);
+			flywheel_op.startFlywheel();
+			chassis_op.chassisController.turnAngle(-42_deg);
 			intakeBalls();
-			chassis_op.chassisController.moveDistance(4.95_ft);
-			chassis_op.chassisController.turnAngle(-90_deg);
-			*/
-		}
-		else if (controller.getDigital(ControllerDigital::B))
-		{
-			arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
-		}
-		else if (controller.getDigital(ControllerDigital::X))
-		{
-			arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
-		}
-		else if (controller.getDigital(ControllerDigital::Y))
-		{
-			arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
+			chassis_op.experimentalChassisController.get()->moveDistance(5.08_ft);
+			chassis_op.chassisController.turnAngle(84_deg);
+			scoreCap(0.75_ft);
+			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+			chassis_op.chassisController.turnAngle(82_deg);
+			chassis_op.ramWallBackwards(700);
+			flywheel_op.fireForEffect();
+			/* ----------------------------- */
+
+			/* Second part of routine. In Progress */
+			chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
+			chassis_op.chassisController.turnAngle(-81.5_deg);
+			chassis_op.experimentalChassisController.get()->moveDistance(-1.8_ft);
+			chassis_op.driveIntoCap();
+			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+			pros::delay(500);
+			chassis_op.experimentalChassisController.get()->moveDistanceAsync(1.37_ft);
+			pros::delay(1000);
+			intakeBalls();
+			chassis_op.experimentalChassisController.get()->waitUntilSettled();
+			arm_op.armController.waitUntilSettled();
+			chassis_op.chassisController.turnAngle(-84.5_deg);
+			scoreCapQuick(0.5_ft);
+			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+			chassis_op.chassisController.turnAngle(-83_deg);
+			chassis_op.experimentalChassisController.get()->moveDistance(2.15_ft);
+			chassis_op.chassisController.turnAngle(-83_deg);
+			chassis_op.ramWallBackwards(300);
+			flywheel_op.fireForEffect();
+			/* ----------------------------------- */
+
+			/* Third part of routine. In Progress */
+			chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
+			chassis_op.chassisController.turnAngle(-77.5_deg);
+			chassis_op.driveIntoCap();
+			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+			pros::delay(500);
+			chassis_op.chassisController.turnAngle(-5_deg);
+			chassis_op.experimentalChassisController.get()->moveDistanceAsync(-2.52_ft);
+			pros::delay(1000);
+			intakeBalls();
+			chassis_op.experimentalChassisController.get()->waitUntilSettled();
+			arm_op.armController.waitUntilSettled();
+			chassis_op.chassisController.turnAngle(-84.5_deg);
+			scoreCapQuick(0.5_ft);
+			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+			chassis_op.chassisController.turnAngle(-83_deg);
+			chassis_op.experimentalChassisController.get()->moveDistance(0.8_ft);
+			chassis_op.chassisController.turnAngle(-83_deg);
+			chassis_op.ramWallBackwards(500);
+			flywheel_op.fireForEffect();
+			/* ---------------------------------- */
 		}
 
 		pros::Task::delay(10);

@@ -12,7 +12,7 @@ public:
   AsyncPosPIDController armController;
 
   static constexpr int DOWN_SETPOINT = 0;
-  static constexpr int SECURE_SETPOINT = 140;
+  static constexpr int SECURE_SETPOINT = 130;
   static constexpr int STASH_SETPOINT = 210;
   static constexpr int SCORE_SETPOINT = 375;
 

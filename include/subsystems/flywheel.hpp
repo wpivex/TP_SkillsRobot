@@ -22,14 +22,14 @@ private:
 
   void fire();
 
-  static constexpr int INTAKE_TRAVEL = 250;
-  static constexpr int INTAKE_VEL = 30;
+  static constexpr int INTAKE_TRAVEL = 350;
+  static constexpr int INTAKE_VEL = 45;
 
   static constexpr int FIRE_VEL = 60;
   static constexpr int FIRE_CURRENT = 1700;
 
-  static constexpr int HIGH_FLAG_RPM = 145; // Int 145, PID 29, Blue 435
-  static constexpr int MID_FLAG_RPM = 127;  // Int 124, PID 25, Blue 372
+  static constexpr int HIGH_FLAG_RPM = 145;
+  static constexpr int MID_FLAG_RPM = 127;
 
   static constexpr int LEFT_FLYWHEEL = 18;
   static constexpr int RIGHT_FLYWHEEL = -8;
