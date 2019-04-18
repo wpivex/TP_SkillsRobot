@@ -1,9 +1,7 @@
 #include "../../include/subsystems/flywheel.hpp"
 
 Flywheel::Flywheel()
-    : flywheelController(AsyncControllerFactory::velIntegrated(
-          {LEFT_FLYWHEEL, RIGHT_FLYWHEEL})),
-      indexer(INDEXER),
+    : indexer(INDEXER),
       leftFlywheel(LEFT_FLYWHEEL),
       rightFlywheel(RIGHT_FLYWHEEL)
 {
@@ -14,16 +12,6 @@ Flywheel::Flywheel()
   indexer.setGearing(AbstractMotor::gearset::green);
 }
 
-void Flywheel::fire()
-{
-  flywheelController.waitUntilSettled();
-  do
-  {
-    indexer.moveVelocity(FIRE_VEL);
-  } while (leftFlywheel.get_current_draw() < FIRE_CURRENT || rightFlywheel.get_current_draw() < FIRE_CURRENT);
-  indexer.moveVelocity(0);
-}
-
 void Flywheel::intake()
 {
   indexer.moveRelative(INTAKE_TRAVEL, INTAKE_VEL);
@@ -31,14 +19,19 @@ void Flywheel::intake()
 
 void Flywheel::startFlywheel()
 {
-  flywheelController.setTarget(MID_FLAG_RPM);
+  leftFlywheel.moveVoltage(FIRE_VOLTAGE);
+  rightFlywheel.moveVoltage(FIRE_VOLTAGE);
+}
+
+void Flywheel::stopFlywheel()
+{
+  leftFlywheel.moveVoltage(0);
+  rightFlywheel.moveVoltage(0);
 }
 
 void Flywheel::fireForEffect()
 {
-  flywheelController.setTarget(MID_FLAG_RPM);
-  fire();
-  flywheelController.setTarget(HIGH_FLAG_RPM);
-  fire();
-  flywheelController.setTarget(MID_FLAG_RPM);
+  indexer.moveVelocity(FIRE_VEL);
+  pros::delay(1600);
+  indexer.moveVelocity(0);
 }

@@ -88,7 +88,7 @@ void opcontrol()
 			scoreCapQuick(0.5_ft);
 			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
 			chassis_op.chassisController.turnAngle(-83_deg);
-			chassis_op.experimentalChassisController.get()->moveDistance(2.15_ft);
+			chassis_op.experimentalChassisController.get()->moveDistance(2.25_ft);
 			chassis_op.chassisController.turnAngle(-83_deg);
 			chassis_op.ramWallBackwards(300);
 			flywheel_op.fireForEffect();
