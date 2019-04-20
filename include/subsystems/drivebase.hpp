@@ -14,11 +14,13 @@ public:
   shared_ptr<ChassisControllerPID> experimentalChassisController;
 
   void driveIntoCap();
+  void driveIntoPole(bool isForward);
   void ramWallBackwards(int duration);
   void ramWallForwards(int duration);
 
 private:
   ADIButton cap_button;
+  pros::ADIUltrasonic pole_ultrasonic;
 
   static constexpr int FRONT_LEFT_DRIVE = 10;
   static constexpr int BACK_LEFT_DRIVE = -2;

@@ -25,7 +25,7 @@ private:
 
   static constexpr int FIRE_VEL = 60;
 
-  static constexpr int FIRE_VOLTAGE = 8050;
+  static constexpr int FIRE_VOLTAGE = 8350;
 
   static constexpr int LEFT_FLYWHEEL = 18;
   static constexpr int RIGHT_FLYWHEEL = -8;

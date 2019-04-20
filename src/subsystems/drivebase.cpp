@@ -2,6 +2,7 @@
 
 Chassis::Chassis()
     : cap_button('C'),
+      pole_ultrasonic('E', 'F'),
       chassisController(
           ChassisControllerFactory::create(
               {FRONT_LEFT_DRIVE, BACK_LEFT_DRIVE},
@@ -10,7 +11,7 @@ Chassis::Chassis()
               ADIEncoder('G', 'H', true),
               IterativePosPIDController::Gains{0.00045, 0.0000007, 0.0000000012},
               IterativePosPIDController::Gains{0.0001, 0.0001, 0.0000000012},
-              IterativePosPIDController::Gains{0.00065, 0.0001, 0.00000000012},
+              IterativePosPIDController::Gains{0.00069, 0.0001, 0.0000012},
               AbstractMotor::gearset::green,
               {RESOLUTION / ((WHEEL_DIAMETER).convert(meter) * 1_pi),
                RESOLUTION * (CHASSIS_WIDTH).convert(meter) / (WHEEL_DIAMETER).convert(meter) / 360}))
@@ -39,6 +40,7 @@ Chassis::Chassis()
       scales);
 
   experimentalChassisController->startThread();
+  experimentalChassisController->setBrakeMode(AbstractMotor::brakeMode::brake);
 }
 
 void Chassis::driveIntoCap()
@@ -61,5 +63,23 @@ void Chassis::ramWallForwards(int duration)
 {
   chassisController.forward(0.5);
   pros::delay(duration);
+  chassisController.stop();
+}
+
+void Chassis::driveIntoPole(bool isForward)
+{
+  double spd = 0.5;
+  double us = -1;
+  if (!isForward)
+  {
+    spd = -spd;
+  }
+  while (!(us < 275 && us > 10))
+  {
+    chassisController.forward(spd);
+    us = pole_ultrasonic.get_value();
+    pros::delay(10);
+  }
+
   chassisController.stop();
 }
