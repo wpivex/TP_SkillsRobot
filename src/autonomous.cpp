@@ -11,101 +11,101 @@
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-/*
-Flywheel flywheel;
-Arm arm;
-Chassis chassis;
 
-void scoreCap()
-{
-    arm.armController.setTarget(arm.SCORE_SETPOINT);
-    pros::delay(200);
-    chassis.chassisController.moveDistance(0.75_ft);
-    arm.armController.setTarget(arm.DOWN_SETPOINT);
-}
+Chassis chassis_auto;
+Arm arm_auto;
+Flywheel flywheel_auto;
 
 void intakeBallsAuto()
 {
-    flywheel.intake();
-    arm.armController.setTarget(arm.STASH_SETPOINT);
+    flywheel_auto.intake();
+    arm_auto.armController.setTarget(arm_auto.STASH_SETPOINT);
+}
+
+void scoreCapAuto(QLength pullOut)
+{
+    chassis_auto.ramWallForwards(1000);
+    arm_auto.armController.setTarget(arm_auto.SCORE_SETPOINT);
+    pros::delay(1100);
+    chassis_auto.chassisController.moveDistance(-pullOut);
+}
+
+void scoreCapQuickAuto(QLength pullOut)
+{
+    arm_auto.armController.setTarget(arm_auto.SCORE_SETPOINT);
+    chassis_auto.ramWallForwards(500);
+    pros::delay(500);
+    chassis_auto.chassisController.moveDistance(-pullOut);
 }
 
 void autonomous()
 {
-    // STAGE ONE
-    // Step
-    chassis.chassisController.moveDistance(1_m);
-    chassis.driveIntoCap();
-
-    // Step
-    arm.armController.setTarget(arm.SECURE_SETPOINT);
-    pros::delay(50);
-    chassis.chassisController.moveDistance(-1_m);
-
-    // Step
-    chassis.chassisController.turnAngle(-45_deg);
-
-    // Step
-    chassis.chassisController.moveDistanceAsync(-7_ft);
-    pros::delay(200);
+    /* FIrst bit of routine. Works!! */
+    chassis_auto.driveIntoCap();
+    arm_auto.armController.setTarget(arm_auto.SECURE_SETPOINT);
+    pros::delay(500);
+    chassis_auto.experimentalChassisController.get()->moveDistance(1.7_ft);
+    flywheel_auto.startFlywheel();
+    chassis_auto.chassisController.turnAngle(-43.75_deg);
     intakeBallsAuto();
-    arm.armController.waitUntilSettled();
-    chassis.chassisController.waitUntilSettled();
+    chassis_auto.experimentalChassisController.get()->moveDistance(5.2_ft);
+    chassis_auto.chassisController.turnAngle(84_deg);
+    scoreCapAuto(0.875_ft);
+    arm_auto.armController.setTarget(arm_auto.DOWN_SETPOINT);
+    chassis_auto.chassisController.turnAngle(82_deg);
+    chassis_auto.ramWallBackwards(1200);
+    flywheel_auto.fireForEffect();
+    /* ----------------------------- */
 
-    // Step
-    chassis.chassisController.turnAngle(90_deg);
-
-    // Step
-    chassis.ramWallBackwards(200);
-
-    // Step
-    scoreCap();
-
-    // Step
-    //flywheel.setFlywheelRPM(FIRST_SHOT_RPM); // TODO: Fix
-    chassis.chassisController.moveDistance(0.5_ft);
-
-    // Step
-    chassis.chassisController.turnAngle(90_deg);
-
-    // Step
-    chassis.ramWallForwards(200);
-
-    // Step
-    flywheel.fireForEffect();
-
-    // STAGE TWO
-    // Step
-    chassis.chassisController.moveDistance(-0.5_ft);
-
-    // Step
-    chassis.chassisController.turnAngle(-45_deg);
-
-    // Step
-    chassis.chassisController.moveDistance(2_ft);
-    chassis.driveIntoCap();
-
-    // Step
+    /* Second part of routine. Works!! */
+    chassis_auto.experimentalChassisController.get()->moveDistance(0.3_ft);
+    chassis_auto.chassisController.turnAngle(-81.5_deg);
+    chassis_auto.experimentalChassisController.get()->moveDistance(-1.8_ft);
+    chassis_auto.driveIntoCap();
+    arm_auto.armController.setTarget(arm_auto.SECURE_SETPOINT);
+    pros::delay(1000);
     intakeBallsAuto();
-    chassis.chassisController.moveDistanceAsync(-3_ft);
-    arm.armController.waitUntilSettled();
-    chassis.chassisController.waitUntilSettled();
+    chassis_auto.driveIntoPole(true);
+    arm_auto.armController.waitUntilSettled();
+    pros::delay(1000);
+    chassis_auto.experimentalChassisController.get()->moveDistance(0.28_ft);
+    chassis_auto.chassisController.turnAngle(-85.0_deg);
+    scoreCapQuickAuto(0.5_ft);
+    arm_auto.armController.setTarget(arm_auto.DOWN_SETPOINT);
+    chassis_auto.chassisController.turnAngle(-83_deg);
+    chassis_auto.experimentalChassisController.get()->moveDistance(2.4_ft);
+    chassis_auto.chassisController.turnAngle(-83_deg);
+    chassis_auto.ramWallBackwards(300);
+    flywheel_auto.fireForEffect();
+    /* ------------------------------- */
 
-    // Step
-    chassis.chassisController.turnAngle(-45_deg);
+    /* Third part of routine. Works!! */
+    chassis_auto.experimentalChassisController.get()->moveDistance(0.3_ft);
+    chassis_auto.chassisController.turnAngle(-77.5_deg);
+    chassis_auto.driveIntoCap();
+    arm_auto.armController.setTarget(arm_auto.SECURE_SETPOINT);
+    pros::delay(500);
+    intakeBallsAuto();
+    chassis_auto.chassisController.turnAngle(-5_deg);
+    chassis_auto.driveIntoPole(false);
+    arm_auto.armController.waitUntilSettled();
+    pros::delay(1000);
+    chassis_auto.experimentalChassisController.get()->moveDistance(0.167_ft);
+    chassis_auto.chassisController.turnAngle(-83.5_deg);
+    scoreCapQuickAuto(0.5_ft);
+    arm_auto.armController.setTarget(arm_auto.DOWN_SETPOINT);
+    chassis_auto.chassisController.turnAngle(-83_deg);
+    chassis_auto.experimentalChassisController.get()->moveDistance(0.8_ft);
+    chassis_auto.chassisController.turnAngle(-83_deg);
+    chassis_auto.ramWallBackwards(500);
+    flywheel_auto.fireForEffect();
+    /* ------------------------------ */
 
-    // TODO: This might be able to be a helper. We'll see.
-    // Step
-    chassis.ramWallBackwards(200);
-
-    // Step
-    scoreCap();
-
-    // Step
-    //flywheel.setFlywheelRPM(FIRST_SHOT_RPM); // TODO: Fix
-    chassis.chassisController.moveDistance(0.5_ft);
-
-    // Step
-    chassis.chassisController.turnAngle(90_deg);
+    /* Fourth part of routine. Works!! */
+    chassis_auto.experimentalChassisController.get()->moveDistance(2.5_ft);
+    chassis_auto.chassisController.turnAngle(20_deg);
+    chassis_auto.experimentalChassisController.get()->moveDistance(1.7_ft);
+    chassis_auto.chassisController.turnAngle(-83.5_deg - 20_deg);
+    chassis_auto.experimentalChassisController.get()->moveDistance(3.5_ft);
+    /* ------------------------------- */
 }
-*/
