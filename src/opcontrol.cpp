@@ -91,7 +91,7 @@ void opcontrol()
 			chassis_op.chassisController.turnAngle(-83_deg);
 			chassis_op.ramWallBackwards(300);
 			flywheel_op.fireForEffect();
-			/* ----------------------------------- */
+			/* ------------------------------- */
 
 			/* Third part of routine. Works!! */
 			chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
@@ -113,7 +113,15 @@ void opcontrol()
 			chassis_op.chassisController.turnAngle(-83_deg);
 			chassis_op.ramWallBackwards(500);
 			flywheel_op.fireForEffect();
-			/* ---------------------------------- */
+			/* ------------------------------ */
+
+			/* Fourth part of routine. Works!! */
+			chassis_op.experimentalChassisController.get()->moveDistance(2.5_ft);
+			chassis_op.chassisController.turnAngle(20_deg);
+			chassis_op.experimentalChassisController.get()->moveDistance(1.7_ft);
+			chassis_op.chassisController.turnAngle(-83.5_deg - 20_deg);
+			chassis_op.experimentalChassisController.get()->moveDistance(3.5_ft);
+			/* ------------------------------- */
 		}
 
 		pros::Task::delay(10);

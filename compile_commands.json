@@ -133,11 +133,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/subsystems/flywheel.cpp.o",
-            "src\\subsystems\\flywheel.cpp"
+            "bin/subsystems/drivebase.cpp.o",
+            "src\\subsystems\\drivebase.cpp"
         ],
         "directory": "C:\\Users\\Brandon\\dev\\wpi-skills-2019",
-        "file": "src\\subsystems\\flywheel.cpp"
+        "file": "src\\subsystems\\drivebase.cpp"
     },
     {
         "arguments": [
@@ -168,11 +168,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/subsystems/drivebase.cpp.o",
-            "src\\subsystems\\drivebase.cpp"
+            "bin/subsystems/flywheel.cpp.o",
+            "src\\subsystems\\flywheel.cpp"
         ],
         "directory": "C:\\Users\\Brandon\\dev\\wpi-skills-2019",
-        "file": "src\\subsystems\\drivebase.cpp"
+        "file": "src\\subsystems\\flywheel.cpp"
     },
     {
         "arguments": [
