@@ -46,83 +46,140 @@ void opcontrol()
 {
 	Controller controller;
 
+	arm_op.leftArm.setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+	arm_op.rightArm.setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+
 	while (true)
 	{
-		chassis_op.chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
-										  controller.getAnalog(ControllerAnalog::rightY));
+		chassis_op.chassisController.arcade(-controller.getAnalog(ControllerAnalog::leftY),
+										  controller.getAnalog(ControllerAnalog::rightX));
 
-		if (controller.getDigital(ControllerDigital::A))
-		{
-
-			/* FIrst bit of routine. Works!! */
-			chassis_op.driveIntoCap();
-			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
-			pros::delay(500);
-			chassis_op.experimentalChassisController.get()->moveDistance(1.7_ft);
+		if(controller.getDigital(ControllerDigital::Y)) {
 			flywheel_op.startFlywheel();
-			chassis_op.chassisController.turnAngle(-43.75_deg);
-			intakeBalls();
-			chassis_op.experimentalChassisController.get()->moveDistance(5.2_ft);
-			chassis_op.chassisController.turnAngle(84_deg);
-			scoreCap(0.875_ft);
-			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
-			chassis_op.chassisController.turnAngle(82_deg);
-			chassis_op.ramWallBackwards(1200);
-			flywheel_op.fireForEffect();
-			/* ----------------------------- */
-
-			/* Second part of routine. Works!! */
-			chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
-			chassis_op.chassisController.turnAngle(-81.5_deg);
-			chassis_op.experimentalChassisController.get()->moveDistance(-1.8_ft);
-			chassis_op.driveIntoCap();
-			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
-			pros::delay(1000);
-			intakeBalls();
-			chassis_op.driveIntoPole(true);
-			arm_op.armController.waitUntilSettled();
-			pros::delay(1000);
-			chassis_op.experimentalChassisController.get()->moveDistance(0.28_ft);
-			chassis_op.chassisController.turnAngle(-85.0_deg);
-			scoreCapQuick(0.5_ft);
-			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
-			chassis_op.chassisController.turnAngle(-83_deg);
-			chassis_op.experimentalChassisController.get()->moveDistance(2.4_ft);
-			chassis_op.chassisController.turnAngle(-83_deg);
-			chassis_op.ramWallBackwards(300);
-			flywheel_op.fireForEffect();
-			/* ------------------------------- */
-
-			/* Third part of routine. Works!! */
-			chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
-			chassis_op.chassisController.turnAngle(-77.5_deg);
-			chassis_op.driveIntoCap();
-			arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
-			pros::delay(500);
-			intakeBalls();
-			chassis_op.chassisController.turnAngle(-5_deg);
-			chassis_op.driveIntoPole(false);
-			arm_op.armController.waitUntilSettled();
-			pros::delay(1000);
-			chassis_op.experimentalChassisController.get()->moveDistance(0.167_ft);
-			chassis_op.chassisController.turnAngle(-83.5_deg);
-			scoreCapQuick(0.5_ft);
-			arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
-			chassis_op.chassisController.turnAngle(-83_deg);
-			chassis_op.experimentalChassisController.get()->moveDistance(0.8_ft);
-			chassis_op.chassisController.turnAngle(-83_deg);
-			chassis_op.ramWallBackwards(500);
-			flywheel_op.fireForEffect();
-			/* ------------------------------ */
-
-			/* Fourth part of routine. Works!! */
-			chassis_op.experimentalChassisController.get()->moveDistance(2.5_ft);
-			chassis_op.chassisController.turnAngle(20_deg);
-			chassis_op.experimentalChassisController.get()->moveDistance(1.7_ft);
-			chassis_op.chassisController.turnAngle(-83.5_deg - 20_deg);
-			chassis_op.experimentalChassisController.get()->moveDistance(3.5_ft);
-			/* ------------------------------- */
 		}
+
+		if(controller.getDigital(ControllerDigital::A)) {
+			flywheel_op.stopFlywheel();
+		}
+
+		if(controller.getDigital(ControllerDigital::X)) {
+			flywheel_op.intake();
+		}
+
+		if(controller.getDigital(ControllerDigital::X)) {
+			intakeBalls;
+		}
+
+		if(controller.getDigital(ControllerDigital::L1)) {
+				arm_op.leftArm.moveVelocity(80);
+				arm_op.rightArm.moveVelocity(80);
+				arm_op.leftArm.setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+				arm_op.rightArm.setBrakeMode(okapi::AbstractMotor::brakeMode::brake);
+		} else if(controller.getDigital(ControllerDigital::L2)) {
+			arm_op.leftArm.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
+			arm_op.rightArm.setBrakeMode(okapi::AbstractMotor::brakeMode::coast);
+			arm_op.leftArm.moveVelocity(-180);
+			arm_op.rightArm.moveVelocity(-180);
+		} else {
+			arm_op.leftArm.moveVelocity(0);
+			arm_op.rightArm.moveVelocity(0);
+		}
+
+		if(controller.getDigital(ControllerDigital::R1)) {
+			flywheel_op.indexer.moveVelocity(150);
+			// arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+		} else {
+			flywheel_op.indexer.moveVelocity(0);
+
+		}
+		// if(controller.getDigital(ControllerDigital::Y)) {
+		// 	arm_op.armController.setTarget(arm_op.STASH_SETPOINT);
+		// }
+
+		// if(controller.getDigital(ControllerDigital::A)) {
+		// 	arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+		// }
+
+		if(controller.getDigital(ControllerDigital::L2)) {
+			arm_op.armController.setTarget(arm_op.SCORE_SETPOINT);
+		}
+
+		// if(controller.getDigital(ControllerDigital::LEFT)) {
+		// 	scoreCap();
+		// }
+
+		// if (controller.getDigital(ControllerDigital::A))
+		// {
+		//
+		// 	/* FIrst bit of routine. Works!! */
+		// 	chassis_op.driveIntoCap();
+		// 	arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+		// 	pros::delay(500);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(1.7_ft);
+		// 	flywheel_op.startFlywheel();
+		// 	chassis_op.chassisController.turnAngle(-43.75_deg);
+		// 	intakeBalls();
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(5.2_ft);
+		// 	chassis_op.chassisController.turnAngle(84_deg);
+		// 	scoreCap(0.875_ft);
+		// 	arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+		// 	chassis_op.chassisController.turnAngle(82_deg);
+		// 	chassis_op.ramWallBackwards(1200);
+		// 	flywheel_op.fireForEffect();
+		// 	/* ----------------------------- */
+		//
+		// 	/* Second part of routine. Works!! */
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
+		// 	chassis_op.chassisController.turnAngle(-81.5_deg);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(-1.8_ft);
+		// 	chassis_op.driveIntoCap();
+		// 	arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+		// 	pros::delay(1000);
+		// 	intakeBalls();
+		// 	chassis_op.driveIntoPole(true);
+		// 	arm_op.armController.waitUntilSettled();
+		// 	pros::delay(1000);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(0.28_ft);
+		// 	chassis_op.chassisController.turnAngle(-85.0_deg);
+		// 	scoreCapQuick(0.5_ft);
+			// arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+		// 	chassis_op.chassisController.turnAngle(-83_deg);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(2.4_ft);
+		// 	chassis_op.chassisController.turnAngle(-83_deg);
+		// 	chassis_op.ramWallBackwards(300);
+		// 	flywheel_op.fireForEffect();
+		// 	/* ------------------------------- */
+		//
+		// 	/* Third part of routine. Works!! */
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(0.3_ft);
+		// 	chassis_op.chassisController.turnAngle(-77.5_deg);
+		// 	chassis_op.driveIntoCap();
+		// 	arm_op.armController.setTarget(arm_op.SECURE_SETPOINT);
+		// 	pros::delay(500);
+		// 	intakeBalls();
+		// 	chassis_op.chassisController.turnAngle(-5_deg);
+		// 	chassis_op.driveIntoPole(false);
+		// 	arm_op.armController.waitUntilSettled();
+		// 	pros::delay(1000);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(0.167_ft);
+		// 	chassis_op.chassisController.turnAngle(-83.5_deg);
+		// 	scoreCapQuick(0.5_ft);
+		// 	arm_op.armController.setTarget(arm_op.DOWN_SETPOINT);
+		// 	chassis_op.chassisController.turnAngle(-83_deg);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(0.8_ft);
+		// 	chassis_op.chassisController.turnAngle(-83_deg);
+		// 	chassis_op.ramWallBackwards(500);
+		// 	flywheel_op.fireForEffect();
+		// 	/* ------------------------------ */
+		//
+		// 	/* Fourth part of routine. Works!! */
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(2.5_ft);
+		// 	chassis_op.chassisController.turnAngle(20_deg);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(1.7_ft);
+		// 	chassis_op.chassisController.turnAngle(-83.5_deg - 20_deg);
+		// 	chassis_op.experimentalChassisController.get()->moveDistance(3.5_ft);
+		// 	/* ------------------------------- */
+		// }
 
 		pros::Task::delay(10);
 	}

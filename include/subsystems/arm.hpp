@@ -16,10 +16,10 @@ public:
   static constexpr int STASH_SETPOINT = 210;
   static constexpr int SCORE_SETPOINT = 375;
 
-private:
+
   Motor leftArm;
   Motor rightArm;
-
+private:
   static constexpr int LEFT_ARM = -11;
   static constexpr int RIGHT_ARM = 6;
 

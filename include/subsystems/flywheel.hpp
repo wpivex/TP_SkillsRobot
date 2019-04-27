@@ -14,9 +14,9 @@ public:
   void startFlywheel();
   void stopFlywheel();
   void fireForEffect();
+  Motor indexer;
 
 private:
-  Motor indexer;
   Motor leftFlywheel;
   Motor rightFlywheel;
 
